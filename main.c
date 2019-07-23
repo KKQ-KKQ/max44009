@@ -5,6 +5,9 @@
 // email: bitbank@pobox.com
 // Project started 11/30/2017
 //
+// Modified by KIRA Ryouta - 07/23/2019
+// Copyright (c) 2019 KIRA Ryouta
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -31,21 +34,20 @@ int main(int argc, char *argv[])
 int i;
 float fLux;
 
-	i = max44009Init(0, 0x4a);
+	i = max44009Init(1, 0x4a, 0x80);
 	if (i != 0)
 	{
 		return -1; // problem - quit
 	}
 
-	printf("MAX44009 device successfully opened.\n");
-	usleep(1000000); // wait for data to settle for first read
-
-	for (i=0; i<30; i++) // read values once a second for 30 seconds
-	{
-		fLux = max44009ReadValue();
-		printf("Light level = %f lux\n", fLux);
-		usleep(1000000);
+	fLux = max44009ReadValue();
+	if (fLux < 1000000) {
+		printf("%.6g\n", fLux);
 	}
+	else {
+		printf("%.9g\n", fLux);
+	}
+	max44009DeInit();
 
 return 0;
 } /* main() */

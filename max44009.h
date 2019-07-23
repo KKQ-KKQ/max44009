@@ -26,7 +26,9 @@
 // Open the I2C bus and set the device into continuous sampling mode
 // returns 0 for success, 1 for failure
 //
-int max44009Init(int iChannel, int iAddr);
+int max44009Init(int iChannel, int iAddr, char config);
+int max44009DeInit();
+int max44009WriteConfig(char conf);
 //
 // Read the current ambient light value in Lux
 //

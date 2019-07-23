@@ -1,0 +1,13 @@
+#!/bin/bash
+showValue () {
+echo "$1 lux"
+}
+
+VAL=$(get_lux)
+ERR=$?
+[[ "$ERR" != "0" ]] && exit $ERR
+showValue $VAL
+for i in {1..10};do
+  sleep 1
+  showValue $(get_lux)
+done
